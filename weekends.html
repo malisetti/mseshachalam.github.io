@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <title>Better days are coming. They're called Saturday and Sunday.</title>
+<body>
+
+    <h2>Check how many times your special day falls on weekend ?</h2>
+<p>
+Enter a date
+</p>
+
+<input type="date" id="d">
+<br><br>
+<textarea id="r" rows="10" cols="50"></textarea>
+
+<p><strong>Note:</strong> type="date" is not supported in Internet Explorer 11 and earlier versions.</p>
+
+<script type="text/javascript">
+'use strict';
+(function () {
+    let d = document.getElementById('d');
+    let r = document.getElementById('r');
+
+    let fweekends = (y, m, d) => {
+            let weekends = [];
+            for (let i = y; i < y + 100; i++) {
+                let c = new Date([i, m+1, d].join('-'));
+                if (c.getDay() >= 6) {
+                    weekends.push(c);
+                }
+            }
+
+            return weekends;
+        };
+
+    d.onchange = (e) => {
+        let selected = new Date(e.srcElement.value);
+        let y = selected.getFullYear();
+        let m = selected.getMonth();
+        let d = selected.getDate();
+
+        if ((y+'').length != 4) {
+            console.log('you fix it');
+            return;
+        }
+
+        let o = '';
+        const wk = fweekends(y, m, d);
+        o = wk.map((date) => {
+            return date.getFullYear();
+        }).join('\t');
+
+        let io = o + '\n Total weekends ' + wk.length + ' \n';
+        r.value = (io + '\n' + wk.length + '\n');
+        o = '';
+        
+        let maxWeekends = 0;
+        let maxWeekendsDate = new Date([y, m, d].join('-'));
+
+        for (let i = 0; i <= 31; i++) {
+            let weekends = fweekends(y, m, i).length;
+            if (weekends > maxWeekends) {
+                maxWeekends = weekends;
+
+                maxWeekendsDate = new Date([y, m+1, i].join('-'));
+            }
+        }
+
+        o = '\n If you choose ' + maxWeekendsDate + ', you will get ' + maxWeekends + ' weekends\n';
+
+        r.value = io + o + '\n';
+    };
+}());
+</script>
+</body>
+</html>
