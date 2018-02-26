@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
-    <title>Better days are coming. They're called Saturday and Sunday.</title>
+    <head>
+        <meta charset="utf-8" />
+        <title>Better days are coming. They're called Saturday and Sunday.</title>
+    </head>
 <body>
 
     <h2>Check how many times your special day falls on weekend ?</h2>
@@ -33,7 +36,7 @@ Enter a date
         };
 
     d.onchange = (e) => {
-        let selected = new Date(e.srcElement.value);
+        let selected = new Date(e.target.value);
         let y = selected.getFullYear();
         let m = selected.getMonth();
         let d = selected.getDate();
